@@ -1,0 +1,35 @@
+﻿
+<form role="form" name="stockform" class="stock-form" ng-submit="AddStock(stockform.$valid)" novalidate>
+    <div role="alert" ng-show="Message.Result!==undefined" ng-class="Message.Result ? 'alert alert-success' : 'alert alert-danger'">
+        <strong ng-show="Message.Result">Success!</strong>
+        <strong ng-show="!Message.Result">Error!</strong> {{Message.Text}}  <a ng-show="Message.Result" class="alert-link" href="#/stocks">Click here to view stocks</a>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" id="inputName" required ng-model="Stock.Name" placeholder="Enter Stock Name">
+    </div>
+    <div class="row" ng-repeat="priceInfo in PriceInfo">
+        <div class="col-xs-6">
+            <input type="text" ng-model="priceInfo.Price" format="number"  required class="form-control" placeholder="Stock Price">
+
+            <a ng-show="$index==PriceInfo.length-1" href="javascript://" ng-click="AddMoreStockPriceInfo()">Add More</a>
+        </div>
+        <div class="col-xs-6">
+            <p class="input-group">
+                <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy" required ng-model="priceInfo.Day"
+                    is-open="priceInfo.OpenDatePicker" datepicker-options="dateOptions"
+                    ng-required="true" close-text="Close" />
+
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default"
+                        ng-click="OpenCalender($event,priceInfo)">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                </span>
+            </p>
+            <a href="javascript://" ng-show="$index>0" ng-click="RemoveStockPriceInfo($index)">Remove</a>
+        </div>
+    </div>
+    <div class="form-group">
+    </div>
+    <button type="submit" ng-disabled="stockform.$invalid" class="btn btn-default">Submit</button>
+</form>

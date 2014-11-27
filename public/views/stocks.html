@@ -1,0 +1,53 @@
+﻿<div class="form-group">
+    <div class="row">
+        <div class="col-xs-6">
+            <p class="input-group">
+                <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy" ng-model="StartDate"
+                    is-open="OpenStartDateCalender" datepicker-options="dateOptions"
+                    ng-required="true" close-text="Close" placeholder="Start Date" />
+
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default"
+                        ng-click="OpenDateCalender($event,true)">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                </span>
+            </p>
+        </div>
+        <div class="col-xs-6">
+            <p class="input-group">
+                <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy" ng-model="EndDate"
+                    is-open="OpenEndDateCalender" min-date="StartDate" datepicker-options="dateOptions"
+                    ng-required="true" close-text="Close" placeholder="End Date" />
+
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default"
+                        ng-click="OpenDateCalender($event,false)">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                </span>
+            </p>
+        </div>
+    </div>
+    <button type="button" ng-click="Search()" class="btn btn-default">Search</button>
+    <div class="form-group">
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+        </div>
+        <div class="panel-body">
+            <div class="list-group" ng-repeat="stock in Stocks">
+                <a href="javascript://" ng-click="ShowPrices(stock)" ng-class="stock.ShowPrice ? 'list-group-item active' : 'list-group-item'">{{stock.Name}}</a>
+                <a ng-show="stock.ShowPrice" ng-repeat="priceInfo in stock.StockPriceInfo" href="javascript://"
+                    class="list-group-item">{{priceInfo.Price}} on {{priceInfo.Day | date:'dd-MMMM-yyyy'}} </a>
+            </div>
+            <div class="list-group" ng-show="Stocks.length<=0">
+                No records found...!
+            </div>
+        </div>
+    </div>
+
+    <div linechart chartdata="ChartData"></div>
+
+
+</div>
